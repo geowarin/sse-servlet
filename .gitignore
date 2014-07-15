@@ -1,0 +1,15 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Mac
+.DS_Store
+
+# Gradle
+out/
+.gradle/
+
+
+atlassian-ide-plugin.xml
