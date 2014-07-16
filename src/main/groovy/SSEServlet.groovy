@@ -74,7 +74,7 @@ class SSEServlet extends HttpServlet {
         writer.write("data: " + message + "\n\n");
 
         writer.flush();
-//        resp.flushBuffer();
+        resp.flushBuffer();
     }
 
     public static class LongTask implements Callable<Boolean> {
