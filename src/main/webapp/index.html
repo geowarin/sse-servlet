@@ -1,14 +1,46 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
+<head>
+    <meta charset="utf-8">
+    <title>Tomcat 8 - servlet 3</title>
+    <meta name="description" content="Tomcat">
+    <meta name="author" content="Geowarin">
+</head>
 
-		<title>Tomcat 8 - servlet 3</title>
-		<meta name="description" content="Tomcat">
-		<meta name="author" content="Geowarin">
-	</head>
+<body>
+<h1>Hello</h1>
+<!--<script src="js/eventsource.js"></script>-->
+<button type="button" onclick="stop()">Stop</button>
 
-	<body>
-        <h1>Kikoo !</h1>
-	</body>
+<script>
+    var eventSource = new EventSource("/async");
+
+    function createDiv(message) {
+        var div = document.createElement("div");
+        div.appendChild(document.createTextNode(message));
+        document.body.appendChild(div);
+    }
+
+    function stop() {
+        console.log('Stop');
+        eventSource.close()
+    }
+
+    var onMessage = function (event) {
+        var message = event.type + ' : ' + event.data;
+        createDiv(message);
+    };
+    var onOpen = function (e) {
+        createDiv('open');
+    };
+    var onError = function (event) {
+        var message = event.eventPhase == EventSource.CLOSED ? 'closed' : 'error';
+        createDiv(message);
+    };
+
+    eventSource.addEventListener("open", onOpen);
+    eventSource.addEventListener("message", onMessage);
+    eventSource.addEventListener("error", onError);
+</script>
+</body>
 </html>
